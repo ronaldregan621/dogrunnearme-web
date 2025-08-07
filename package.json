@@ -18,7 +18,8 @@
     "react-dom": "19.1.0",
     "react-hook-form": "^7.60.0",
     "zod": "^4.0.5",
-    "swiper": "^11.1.0"
+    "swiper": "^11.1.0",
+    "@vercel/analytics": "^1.2.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
