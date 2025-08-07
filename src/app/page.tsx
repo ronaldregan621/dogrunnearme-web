@@ -9,10 +9,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Find the Perfect Dog Park in NYC
+              Best Dog Parks in NYC 2025
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-blue-100">
-              Discover safe, well-equipped dog parks with separate areas, water fountains, and real user reviews
+              <span className="italic">As voted by the r/AskNYC community!</span>
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
