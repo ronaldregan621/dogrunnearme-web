@@ -2,6 +2,7 @@ import { dogParks } from '@/data/dogParks';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Page({ params }: any) {
   const park = dogParks.find((p) => p.slug === params.slug);
   if (!park) return notFound();
