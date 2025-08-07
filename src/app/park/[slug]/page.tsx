@@ -2,11 +2,7 @@ import { dogParks } from '@/data/dogParks';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
-interface ParkPageProps {
-  params: { slug: string };
-}
-
-export default function ParkPage({ params }: ParkPageProps) {
+export default function Page({ params }: { params: { slug: string } }) {
   const park = dogParks.find((p) => p.slug === params.slug);
   if (!park) return notFound();
 
