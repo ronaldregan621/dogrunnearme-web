@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
+import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Dog Run Near Me - Find NYC Dog Parks",
@@ -16,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased font-sans">
+        <NavBar />
         {children}
+        <Footer />
         <Analytics />
       </body>
     </html>
