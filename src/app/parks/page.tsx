@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { dogParks } from '@/data/dogParks';
 import ParkCard from '@/components/ParkCard';
 import { DogPark } from '@/types/dogPark';
@@ -17,6 +18,9 @@ const ALL_AMENITIES: { key: keyof DogPark['features']; label: string }[] = [
 ];
 
 export default function ParksDirectory() {
+  const searchParams = useSearchParams();
+  const nearParam = searchParams.get('near'); // e.g., "40.73,-73.99"
+
   const boroughs = Array.from(new Set(dogParks.map((p) => p.location.borough))).sort();
 
   const [query, setQuery] = useState('');
@@ -24,17 +28,8 @@ export default function ParksDirectory() {
   const [selectedAmenities, setSelectedAmenities] = useState<Set<string>>(new Set());
   const [minRating, setMinRating] = useState<number>(0);
 
-  const toggleAmenity = (key: string) => {
-    setSelectedAmenities((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(key)) newSet.delete(key);
-      else newSet.add(key);
-      return newSet;
-    });
-  };
-
   const filteredParks = useMemo(() => {
-    return dogParks.filter((park) => {
+    let list = dogParks.filter((park) => {
       // Search query (name)
       if (query && !park.name.toLowerCase().includes(query.toLowerCase())) return false;
       // Borough filter
@@ -47,7 +42,39 @@ export default function ParksDirectory() {
       }
       return true;
     });
-  }, [query, selectedBorough, minRating, selectedAmenities]);
+
+    // If near param provided, sort by distance
+    if (nearParam) {
+      const [lat, lng] = nearParam.split(',').map(Number);
+      const dist = (p: DogPark) => haversine(lat, lng, p.location.coordinates.lat, p.location.coordinates.lng);
+      list = [...list].sort((a, b) => dist(a) - dist(b));
+    }
+    return list;
+  }, [query, selectedBorough, minRating, selectedAmenities, nearParam]);
+
+  // Scroll to first park if near search applied
+  useEffect(()=>{
+    if(nearParam && filteredParks.length>0){
+      const el=document.getElementById(filteredParks[0].id);
+      el?.scrollIntoView({behavior:'smooth'});
+    }
+  },[nearParam, filteredParks]);
+
+  const toggleAmenity = (key: string) => {
+    setSelectedAmenities((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(key)) newSet.delete(key);
+      else newSet.add(key);
+      return newSet;
+    });
+  };
+
+  function haversine(lat1:number,lng1:number,lat2:number,lng2:number){
+    const R=6371;const toRad=(v:number)=>v*(Math.PI/180);
+    const dLat=toRad(lat2-lat1);const dLng=toRad(lng2-lng1);
+    const a=Math.sin(dLat/2)**2+Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)**2;
+    return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 pb-16">

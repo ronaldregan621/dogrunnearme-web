@@ -32,7 +32,7 @@ export default function ParkCard({ park }: ParkCardProps) {
     : 0;
 
   return (
-    <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+    <div id={park.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
       {park.location.coordinates && (
         <Image
           src={`https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${park.location.coordinates.lat},${park.location.coordinates.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
