@@ -17,6 +17,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content="Best Dog Parks in NYC 2025" />
+        <meta property="og:description" content="NYC dog-run directory voted by Reddit's r/AskNYC community." />
+        <meta property="og:image" content="/og.jpg" />
+        <meta property="og:url" content="https://dogrunnearme.com" />
+      </head>
       <body className="antialiased font-sans">
         <NavBar />
         {children}

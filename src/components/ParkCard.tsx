@@ -36,7 +36,7 @@ export default function ParkCard({ park }: ParkCardProps) {
       {park.location.coordinates && (
         <Image
           src={`https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${park.location.coordinates.lat},${park.location.coordinates.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
-          alt={park.name}
+          alt={`${park.name} street view`}
           width={600}
           height={300}
           className="w-full h-40 object-cover" />

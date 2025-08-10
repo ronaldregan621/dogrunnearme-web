@@ -8,7 +8,7 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-24">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               Best Dog Parks in NYC 2025
@@ -140,6 +140,16 @@ export default function Home() {
           <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
             Start Exploring
           </button>
+        </div>
+      </div>
+
+      {/* About Section */}
+      <div id="about" className="bg-white py-16">
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">About DogRunNearMe</h2>
+          <p className="text-gray-700">
+            DogRunNearMe is a passion project built by NYC dog owners to make it easy to find the safest, most enjoyable off-leash areas around the city. Data is refreshed monthly and park rankings are influenced by real votes from the r/AskNYC community.
+          </p>
         </div>
       </div>
     </div>
