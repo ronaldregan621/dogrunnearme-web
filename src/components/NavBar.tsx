@@ -10,6 +10,7 @@ export default function NavBar() {
         <div className="space-x-6 text-sm font-medium text-gray-700 hidden sm:block">
           <Link href="/">Home</Link>
           <Link href="/parks">All Parks</Link>
+          <Link href="/dog-rules">Dog Rules</Link>
           <a href="/#about">About</a>
         </div>
       </nav>
