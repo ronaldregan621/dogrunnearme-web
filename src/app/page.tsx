@@ -2,10 +2,13 @@ import { dogParks } from '@/data/dogParks';
 import ParkCard from '@/components/ParkCard';
 import TopParksCarousel from '@/components/TopParksCarousel';
 import HeroButtons from '@/components/HeroButtons';
+import AboutSection from '@/components/AboutSection';
+import { Dog, Fence, Clock, Accessibility } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-24">
@@ -17,52 +20,58 @@ export default function Home() {
               <span className="italic">As voted by the r/AskNYC community!</span>
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <HeroButtons />
+              <HeroButtons />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Stats Section */}
       {/* Top Parks Carousel */}
       <TopParksCarousel />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="text-center">
-            <div className="text-3xl font-bold text-blue-600 mb-2">{dogParks.length}</div>
-            <p className="text-gray-600">Dog Parks</p>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-green-600 mb-2">
-              {dogParks.filter(park => park.features.separateAreas).length}
+      {/* Stats Section */}
+      <div className="bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="text-center">
+              <Dog className="w-10 h-10 mx-auto text-blue-500 mb-2" />
+              <div className="text-3xl font-bold text-gray-900 mb-1">{dogParks.length}</div>
+              <p className="text-gray-600">Dog Parks</p>
             </div>
-            <p className="text-gray-600">With Separate Areas</p>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-purple-600 mb-2">
-              {dogParks.filter(park => park.hours.extendedHours).length}
+            <div className="text-center">
+              <Fence className="w-10 h-10 mx-auto text-green-500 mb-2" />
+              <div className="text-3xl font-bold text-gray-900 mb-1">
+                {dogParks.filter(park => park.features.separateAreas).length}
+              </div>
+              <p className="text-gray-600">Separate Areas</p>
             </div>
-            <p className="text-gray-600">Extended Hours</p>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-orange-600 mb-2">
-              {dogParks.filter(park => park.accessibility.wheelchairAccessible).length}
+            <div className="text-center">
+              <Clock className="w-10 h-10 mx-auto text-purple-500 mb-2" />
+              <div className="text-3xl font-bold text-gray-900 mb-1">
+                {dogParks.filter(park => park.hours.extendedHours).length}
+              </div>
+              <p className="text-gray-600">Extended Hours</p>
             </div>
-            <p className="text-gray-600">Wheelchair Accessible</p>
+            <div className="text-center">
+              <Accessibility className="w-10 h-10 mx-auto text-orange-500 mb-2" />
+              <div className="text-3xl font-bold text-gray-900 mb-1">
+                {dogParks.filter(park => park.accessibility.wheelchairAccessible).length}
+              </div>
+              <p className="text-gray-600">Accessible</p>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Features Section */}
+      {/* Why Choose Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
             Why Choose Our Directory?
           </h2>
-                      <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We&apos;ve researched every NYC dog park to bring you the most comprehensive and up-to-date information
-            </p>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            We&apos;ve researched every NYC dog park to bring you the most comprehensive and up-to-date information
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -104,27 +113,29 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Parks Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Featured Dog Parks
-          </h2>
-          <p className="text-xl text-gray-600">
-            Discover the best dog parks in NYC, hand-picked based on user reviews and amenities
-          </p>
-        </div>
+      {/* Featured Parks Grid */}
+      <div className="bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Featured Dog Parks
+            </h2>
+            <p className="text-xl text-gray-600">
+              Discover the best dog parks in NYC, hand-picked based on user reviews and amenities
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {dogParks.slice(0, 6).map((park) => (
-            <ParkCard key={park.id} park={park} />
-          ))}
-        </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {dogParks.slice(0, 6).map((park) => (
+              <ParkCard key={park.id} park={park} />
+            ))}
+          </div>
 
-        <div className="text-center mt-12">
-          <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-            View All Parks
-          </button>
+          <div className="text-center mt-12">
+            <Link href="/parks" className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+              View All Parks
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -137,21 +148,13 @@ export default function Home() {
           <p className="text-xl text-gray-300 mb-8">
             Join thousands of NYC dog owners who trust our directory for safe, fun park experiences
           </p>
-          <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+          <Link href="/parks" className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
             Start Exploring
-          </button>
+          </Link>
         </div>
       </div>
 
-      {/* About Section */}
-      <div id="about" className="bg-white py-16">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">About DogRunNearMe</h2>
-          <p className="text-gray-700">
-            DogRunNearMe is a passion project built by NYC dog owners to make it easy to find the safest, most enjoyable off-leash areas around the city. Data is refreshed monthly and park rankings are influenced by real votes from the r/AskNYC community.
-          </p>
-        </div>
-      </div>
+      <AboutSection />
     </div>
   );
 }
