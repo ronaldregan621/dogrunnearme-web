@@ -21,10 +21,9 @@ export default function QuestionsHubPage() {
                 {q.question}
               </h2>
             </Link>
-            <div 
-              className="mt-2 text-gray-600 prose"
-              dangerouslySetInnerHTML={{ __html: q.answer.substring(0, 150) + '...' }}
-            />
+            <p className="mt-2 text-gray-600">
+              {q.quickAnswer}
+            </p>
             <Link href={`/questions/${q.slug}`} className="text-blue-600 hover:text-blue-700 font-semibold mt-2 inline-block">
               Read More &rarr;
             </Link>
