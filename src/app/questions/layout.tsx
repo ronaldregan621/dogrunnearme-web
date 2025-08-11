@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   description: 'Find answers to common questions about NYC dog parks, including rules, etiquette, and how to find the best spots for your pup.',
 };
 
+// This layout provides a focused, distraction-free reading experience for the Q&A section.
 export default function QuestionsLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-gray-50">
