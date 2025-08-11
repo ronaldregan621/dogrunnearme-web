@@ -1,9 +1,43 @@
 import { dogParks } from '@/data/dogParks';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function Page({ params }: any) {
+type Props = {
+  params: { slug: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const park = dogParks.find((p) => p.slug === params.slug);
+  if (!park) {
+    return {
+      title: 'Park Not Found',
+    };
+  }
+
+  const title = `${park.name} - ${park.location.borough} | DogRunNearMe`;
+  const description = `Find details for ${park.name}, a dog-friendly park in ${park.location.borough}. View off-leash hours, amenities, safety ratings, and user photos.`;
+  const keywords = `dog park ${park.location.borough}, ${park.name}, dog runs ${park.location.borough}, ${park.location.address}`;
+
+  return {
+    title,
+    description,
+    keywords,
+    openGraph: {
+      title,
+      description,
+      images: [
+        {
+          url: `https://www.dogrunnearme.com/api/og?title=${encodeURIComponent(park.name)}`,
+          width: 1200,
+          height: 630,
+        },
+      ],
+    },
+  };
+}
+
+export default function Page({ params }: Props) {
   const park = dogParks.find((p) => p.slug === params.slug);
   if (!park) return notFound();
 
@@ -19,7 +53,7 @@ export default function Page({ params }: any) {
 
         <Image
           src={streetViewUrl}
-          alt={park.name}
+          alt={`A street view image of ${park.name} in ${park.location.borough}, a popular dog run near me.`}
           width={800}
           height={400}
           className="w-full rounded-lg mb-8"

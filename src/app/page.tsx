@@ -5,6 +5,12 @@ import HeroButtons from '@/components/HeroButtons';
 import AboutSection from '@/components/AboutSection';
 import { Dog, Fence, Clock, Accessibility } from 'lucide-react';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'DogRunNearMe - The Best NYC Dog Parks, Voted by Redditors',
+  description: "Your ultimate guide to the best dog parks in NYC, with off-leash hours, safety reviews, and community insights. Find a dog-friendly park near you today.",
+};
 
 export default function Home() {
   return (

@@ -5,9 +5,12 @@ import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Dog Run Near Me - Find NYC Dog Parks",
-  description: "Discover the best dog parks in NYC. Find dog-friendly parks with real-time status, safety ratings, and community reviews.",
-  keywords: "dog parks NYC, dog runs near me, off-leash areas, dog-friendly parks, NYC dog parks",
+  title: {
+    template: '%s | DogRunNearMe',
+    default: 'DogRunNearMe - The Best NYC Dog Parks, Voted by Redditors',
+  },
+  description: "Find the best dog parks in NYC with off-leash hours, user photos, and safety reviews. Your guide to dog-friendly parks in Manhattan, Brooklyn, Queens, and more.",
+  keywords: "dog parks NYC, dog runs near me, NYC off-leash hours, best dog parks Brooklyn, dog-friendly parks Manhattan, dog park reviews",
 };
 
 export default function RootLayout({
@@ -19,10 +22,11 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" />
-        <meta property="og:title" content="Best Dog Parks in NYC 2025" />
-        <meta property="og:description" content="NYC dog-run directory voted by Reddit's r/AskNYC community." />
-        <meta property="og:image" content="/og.jpg" />
-        <meta property="og:url" content="https://dogrunnearme.com" />
+        <meta property="og:title" content="Best Dog Parks in NYC 2025 | Voted by r/AskNYC" />
+        <meta property="og:description" content="The ultimate guide to NYC's top dog runs, featuring off-leash hours, safety ratings, and user-submitted photos." />
+        <meta property="og:image" content="https://www.dogrunnearme.com/og-image.png" />
+        <meta property="og:url" content="https://www.dogrunnearme.com" />
+        <meta name="twitter:card" content="summary_large_image" />
       </head>
       <body className="antialiased font-sans">
         <NavBar />
