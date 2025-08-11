@@ -1,181 +1,100 @@
 'use client';
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/pagination';
 import { DogPark } from '@/types/dogPark';
+import Link from 'next/link';
+import GooglePhotosCarousel from './GooglePhotosCarousel';
 
 interface ParkCardProps {
   park: DogPark;
 }
 
 export default function ParkCard({ park }: ParkCardProps) {
-  const getCrowdLevelColor = (level: string) => {
-    switch (level) {
-      case 'light': return 'text-green-600 bg-green-100';
-      case 'moderate': return 'text-yellow-600 bg-yellow-100';
-      case 'busy': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
-    }
-  };
-
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'open': return 'text-green-600 bg-green-100';
-      case 'closed': return 'text-red-600 bg-red-100';
-      case 'maintenance': return 'text-orange-600 bg-orange-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case 'open': return 'text-green-600';
+      case 'closed': return 'text-red-600';
+      case 'maintenance': return 'text-yellow-600';
+      default: return 'text-gray-600';
     }
   };
 
-  const averageRating = park.reviews.length > 0 
-    ? park.reviews.reduce((sum, review) => sum + review.rating, 0) / park.reviews.length 
-    : 0;
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case 'open': return 'Open';
+      case 'closed': return 'Closed';
+      case 'maintenance': return 'Maintenance';
+      default: return 'Unknown';
+    }
+  };
+
+  // Create fallback Street View URL
+  const streetViewUrl = park.location.coordinates 
+    ? `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${park.location.coordinates.lat},${park.location.coordinates.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`
+    : null;
+
+  const fallbackPhotos = park.photos.length > 0 
+    ? park.photos 
+    : streetViewUrl 
+    ? [streetViewUrl] 
+    : [];
 
   return (
-    <div id={park.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
-      {park.photos && park.photos.length > 0 ? (
-        <Swiper modules={[Pagination]} pagination={{ clickable: true }} className="h-40 w-full">
-          {park.photos.slice(0,5).map((url, idx) => (
-            <SwiperSlide key={idx} className="h-40 w-full">
-              <Image src={url} alt={`${park.name} photo ${idx+1}`} width={600} height={300} className="w-full h-40 object-cover" />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      ) : (
-        park.location.coordinates && (
-          <Image
-            src={`https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${park.location.coordinates.lat},${park.location.coordinates.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
-            alt={`${park.name} street view`}
-            width={600}
-            height={300}
-            className="w-full h-40 object-cover"
-          />
-        )
-      )}
-      <div className="p-6">
-        <div className="flex justify-between items-start mb-4">
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              <Link href={`/park/${park.slug}`} className="hover:text-blue-600 transition-colors">
-                {park.name}
-              </Link>
-            </h3>
-            <p className="text-gray-600 text-sm mb-2">{park.location.address}</p>
-            <p className="text-gray-500 text-sm capitalize">{park.location.borough}</p>
-          </div>
-          <div className="flex flex-col items-end space-y-2">
-            <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(park.status)}`}>
-              {park.status}
+    <div id={park.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+      {/* Google Photos Carousel */}
+      <GooglePhotosCarousel 
+        parkName={park.name}
+        fallbackPhotos={fallbackPhotos}
+        className="h-40 w-full"
+      />
+
+      <div className="p-4">
+        <div className="flex justify-between items-start mb-2">
+          <h3 className="text-lg font-semibold text-gray-900 line-clamp-2">
+            {park.name}
+          </h3>
+          <span className={`text-sm font-medium ${getStatusColor(park.status)}`}>
+            {getStatusText(park.status)}
+          </span>
+        </div>
+
+        <p className="text-gray-600 text-sm mb-3">
+          {park.location.address}
+        </p>
+
+        {/* Features */}
+        <div className="flex flex-wrap gap-1 mb-3">
+          {park.features.separateAreas && (
+            <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">
+              Separate Areas
             </span>
-            <span className={`px-2 py-1 rounded-full text-xs font-medium ${getCrowdLevelColor(park.crowdLevel)}`}>
-              {park.crowdLevel} crowd
+          )}
+          {park.features.waterFountain && (
+            <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">
+              Water
             </span>
-          </div>
+          )}
+          {park.features.shade && (
+            <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">
+              Shade
+            </span>
+          )}
+          {park.features.seating && (
+            <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">
+              Seating
+            </span>
+          )}
         </div>
 
-        {/* Safety Rating */}
-        <div className="flex items-center mb-4">
-          <div className="flex items-center">
-            <span className="text-sm font-medium text-gray-700 mr-2">Safety:</span>
-            <div className="flex items-center">
-              <span className="text-lg font-semibold text-green-600 mr-1">{park.safety.rating}</span>
-              <div className="flex">
-                {[...Array(5)].map((_, i) => (
-                  <svg
-                    key={i}
-                    className={`w-4 h-4 ${i < Math.round(park.safety.rating) ? 'text-yellow-400' : 'text-gray-300'}`}
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
-            </div>
-          </div>
+        {/* Rating and Hours */}
+        <div className="flex justify-between items-center text-sm text-gray-600 mb-3">
+          <span>Safety: {park.safety.rating}/5</span>
+          <span>{park.hours.open} - {park.hours.close}</span>
         </div>
 
-        {/* Key Features */}
-        <div className="mb-4">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">Features:</h4>
-          <div className="flex flex-wrap gap-2">
-            {park.features.separateAreas && (
-              <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">Separate Areas</span>
-            )}
-            {park.features.waterFountain && (
-              <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">Water Fountain</span>
-            )}
-            {park.features.shade && (
-              <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">Shade</span>
-            )}
-            {park.features.agilityEquipment && (
-              <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">Agility Equipment</span>
-            )}
-            {park.hours.extendedHours && (
-              <span className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Extended Hours</span>
-            )}
-          </div>
-        </div>
-
-        {/* Hours */}
-        <div className="mb-4">
-          <p className="text-sm text-gray-600">
-            <span className="font-medium">Hours:</span> {park.hours.open} - {park.hours.close}
-            {park.hours.extendedHours && <span className="text-green-600 ml-1">(Extended)</span>}
-          </p>
-        </div>
-
-        {/* Reviews Summary */}
-        {park.reviews.length > 0 && (
-          <div className="mb-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <span className="text-sm font-medium text-gray-700 mr-2">Reviews:</span>
-                <div className="flex items-center">
-                  <span className="text-lg font-semibold text-yellow-600 mr-1">{averageRating.toFixed(1)}</span>
-                  <div className="flex">
-                    {[...Array(5)].map((_, i) => (
-                      <svg
-                        key={i}
-                        className={`w-4 h-4 ${i < Math.round(averageRating) ? 'text-yellow-400' : 'text-gray-300'}`}
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <span className="text-sm text-gray-500">({park.reviews.length} reviews)</span>
-            </div>
-          </div>
-        )}
-
-        {/* Accessibility */}
-        <div className="mb-4">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">Accessibility:</h4>
-          <div className="flex flex-wrap gap-2">
-            {park.accessibility.wheelchairAccessible && (
-              <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">Wheelchair Accessible</span>
-            )}
-            {park.accessibility.pavedPaths && (
-              <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">Paved Paths</span>
-            )}
-            {park.accessibility.easyEntry && (
-              <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">Easy Entry</span>
-            )}
-          </div>
-        </div>
-
-        {/* View Details Button */}
+        {/* View Details Link */}
         <Link 
           href={`/park/${park.slug}`}
-          className="block w-full text-center bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200 font-medium"
+          className="block w-full bg-blue-600 text-white text-center py-2 rounded hover:bg-blue-700 transition-colors"
         >
           View Details
         </Link>
