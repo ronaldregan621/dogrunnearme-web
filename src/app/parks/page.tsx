@@ -1,7 +1,7 @@
 'use client';
 export const dynamic = 'force-dynamic';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { dogParks } from '@/data/dogParks';
 import ParkCard from '@/components/ParkCard';
@@ -18,149 +18,204 @@ const ALL_AMENITIES: { key: keyof DogPark['features']; label: string }[] = [
   { key: 'lighting', label: 'Night Lighting' },
 ];
 
-export default function ParksDirectory() {
+// Haversine formula to calculate distance between two coordinates
+function haversine(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const R = 3959; // Earth's radius in miles
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
+function ParksContent() {
   const searchParams = useSearchParams();
-  const nearParam = searchParams.get('near'); // e.g., "40.73,-73.99"
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
+  const [selectedRating, setSelectedRating] = useState<string>('all');
 
-  const boroughs = Array.from(new Set(dogParks.map((p) => p.location.borough))).sort();
-
-  const [query, setQuery] = useState('');
-  const [selectedBorough, setSelectedBorough] = useState<string>('All');
-  const [selectedAmenities, setSelectedAmenities] = useState<Set<string>>(new Set());
-  const [minRating, setMinRating] = useState<number>(0);
+  const nearParam = searchParams.get('near');
 
   const filteredParks = useMemo(() => {
-    let list = dogParks.filter((park) => {
-      // Search query (name)
-      if (query && !park.name.toLowerCase().includes(query.toLowerCase())) return false;
-      // Borough filter
-      if (selectedBorough !== 'All' && park.location.borough !== selectedBorough) return false;
-      // Minimum safety rating filter (0–5)
-      if (minRating > 0 && park.safety.rating < minRating) return false;
-      // Amenities filter (all selected must be true)
-      for (const amenity of selectedAmenities) {
-        if (!park.features[amenity as keyof DogPark['features']]) return false;
+    let filtered = dogParks.filter((park) => {
+      // Amenity filters
+      if (selectedAmenities.length > 0) {
+        const hasAllAmenities = selectedAmenities.every(amenity => 
+          park.features[amenity as keyof DogPark['features']]
+        );
+        if (!hasAllAmenities) return false;
       }
+
+      // Rating filter (using safety rating)
+      if (selectedRating !== 'all') {
+        const minRating = parseFloat(selectedRating);
+        if (park.safety.rating < minRating) return false;
+      }
+
       return true;
     });
 
-    // If near param provided, sort by distance
+    // Sort by distance if nearParam is provided
     if (nearParam) {
-      const [lat, lng] = nearParam.split(',').map(Number);
-      const dist = (p: DogPark) => haversine(lat, lng, p.location.coordinates.lat, p.location.coordinates.lng);
-      list = [...list].sort((a, b) => dist(a) - dist(b));
+      try {
+        const [lat, lng] = nearParam.split(',').map(Number);
+        if (!isNaN(lat) && !isNaN(lng)) {
+          filtered = filtered
+            .map(park => ({
+              ...park,
+              distance: park.location.coordinates ? 
+                haversine(lat, lng, park.location.coordinates.lat, park.location.coordinates.lng) : 
+                Infinity
+            }))
+            .sort((a, b) => a.distance - b.distance);
+        }
+      } catch (error) {
+        console.error('Error parsing near parameter:', error);
+      }
     }
-    return list;
-  }, [query, selectedBorough, minRating, selectedAmenities, nearParam]);
 
-  // Scroll to first park if near search applied
-  useEffect(()=>{
-    if(nearParam && filteredParks.length>0){
-      const el=document.getElementById(filteredParks[0].id);
-      el?.scrollIntoView({behavior:'smooth'});
+    return filtered;
+  }, [selectedAmenities, selectedRating, nearParam]);
+
+  // Scroll to closest park if nearParam is present
+  useEffect(() => {
+    if (nearParam && filteredParks.length > 0) {
+      const closestPark = filteredParks[0];
+      const element = document.getElementById(closestPark.id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     }
-  },[nearParam, filteredParks]);
+  }, [nearParam, filteredParks]);
 
-  const toggleAmenity = (key: string) => {
-    setSelectedAmenities((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(key)) newSet.delete(key);
-      else newSet.add(key);
-      return newSet;
-    });
+  const handleAmenityChange = (amenity: string) => {
+    setSelectedAmenities(prev => 
+      prev.includes(amenity) 
+        ? prev.filter(a => a !== amenity)
+        : [...prev, amenity]
+    );
   };
 
-  function haversine(lat1:number,lng1:number,lat2:number,lng2:number){
-    const R=6371;const toRad=(v:number)=>v*(Math.PI/180);
-    const dLat=toRad(lat2-lat1);const dLng=toRad(lng2-lng1);
-    const a=Math.sin(dLat/2)**2+Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)**2;
-    return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
-  }
+  const clearFilters = () => {
+    setSelectedAmenities([]);
+    setSelectedRating('all');
+  };
+
+  const activeFiltersCount = selectedAmenities.length + 
+    (selectedRating !== 'all' ? 1 : 0);
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-16">
-      <div className="bg-blue-600 text-white py-10 mb-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold">NYC Dog Park Directory</h1>
-          <p className="text-blue-100 mt-2">Filter by amenities, rating, borough, and more—data refreshed monthly.</p>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            NYC Dog Parks Directory
+          </h1>
+          <p className="text-gray-600">
+            Find the perfect dog park for you and your furry friend
+          </p>
+          {nearParam && (
+            <p className="text-blue-600 mt-2">
+              📍 Showing parks sorted by distance from your location
+            </p>
+          )}
         </div>
-      </div>
 
-      {/* Filters */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {/* Search */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Search by name</label>
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="e.g., Tompkins Square"
-              className="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
-            />
+        {/* Filters */}
+        <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+            {activeFiltersCount > 0 && (
+              <button
+                onClick={clearFilters}
+                className="text-sm text-blue-600 hover:text-blue-700"
+              >
+                Clear all ({activeFiltersCount})
+              </button>
+            )}
           </div>
 
-          {/* Borough */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Borough</label>
-            <select
-              value={selectedBorough}
-              onChange={(e) => setSelectedBorough(e.target.value)}
-              className="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
-            >
-              <option value="All">All</option>
-              {boroughs.map((b) => (
-                <option key={b} value={b}>{b}</option>
-              ))}
-            </select>
-          </div>
-
-          {/* Min Rating */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Min Safety Rating</label>
-            <input
-              type="number"
-              min={0}
-              max={5}
-              step={0.1}
-              value={minRating}
-              onChange={(e) => setMinRating(parseFloat(e.target.value) || 0)}
-              className="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
-            />
-          </div>
-
-          {/* Amenities expandable */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Amenities</label>
+          {/* Amenities */}
+          <div className="mb-6">
+            <h3 className="text-sm font-medium text-gray-700 mb-3">Amenities</h3>
             <div className="flex flex-wrap gap-2">
               {ALL_AMENITIES.map(({ key, label }) => (
                 <button
                   key={key}
-                  type="button"
-                  onClick={() => toggleAmenity(key)}
-                  className={`px-2 py-1 rounded-full text-xs border ${selectedAmenities.has(key) ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-700 border-gray-300'} transition-colors`}
+                  onClick={() => handleAmenityChange(key)}
+                  className={`px-3 py-1 rounded-full text-sm border transition-colors ${
+                    selectedAmenities.includes(key)
+                      ? 'bg-blue-100 border-blue-300 text-blue-800'
+                      : 'bg-white border-gray-300 text-gray-700 hover:border-gray-400'
+                  }`}
                 >
                   {label}
                 </button>
               ))}
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Results */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {filteredParks.length === 0 ? (
-          <p className="text-gray-600">No parks match your filters.</p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredParks.map((park) => (
-              <ParkCard key={park.id} park={park} />
-            ))}
+          {/* Rating Filter */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Minimum Safety Rating
+              </label>
+              <select
+                value={selectedRating}
+                onChange={(e) => setSelectedRating(e.target.value)}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="all">Any Rating</option>
+                <option value="4.0">4.0+ Stars</option>
+                <option value="4.5">4.5+ Stars</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Results */}
+        <div className="mb-6">
+          <p className="text-gray-600">
+            Showing {filteredParks.length} of {dogParks.length} parks
+          </p>
+        </div>
+
+        {/* Parks Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredParks.map((park) => (
+            <ParkCard key={park.id} park={park} />
+          ))}
+        </div>
+
+        {filteredParks.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">
+              No parks match your current filters.
+            </p>
+            <button
+              onClick={clearFilters}
+              className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Clear Filters
+            </button>
           </div>
         )}
       </div>
     </div>
+  );
+}
+
+export default function ParksPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p className="text-gray-600">Loading parks...</p>
+      </div>
+    </div>}>
+      <ParksContent />
+    </Suspense>
   );
 } 
