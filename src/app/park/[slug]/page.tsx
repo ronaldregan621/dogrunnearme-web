@@ -98,8 +98,11 @@ export default function Page({ params }: Props) {
             <p className="text-gray-700 mb-3">
               Looking for a place for your pup to cool off? Explore the dog-friendly water access inside Prospect Park.
             </p>
-            <Link href="/park/prospect-park-dog-run/dog-beach" className="inline-block text-blue-600 font-semibold hover:underline">
+            <Link href="/park/prospect-park-dog-run/dog-beach" className="inline-block text-blue-600 font-semibold hover:underline mr-4">
               View Prospect Park Dog Beach →
+            </Link>
+            <Link href="/guides/prospect-park-with-dogs.md" className="inline-block text-green-700 font-semibold hover:underline">
+              Prospect Park With Dogs Guide →
             </Link>
           </div>
         )}
