@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     default: 'DogRunNearMe - The Best NYC Dog Parks, Voted by Redditors',
   },
   description: "Find the best dog parks in NYC with off-leash hours, user photos, and safety reviews. Your guide to dog-friendly parks in Manhattan, Brooklyn, Queens, and more.",
-  keywords: "dog parks NYC, dog runs near me, NYC off-leash hours, best dog parks Brooklyn, dog-friendly parks Manhattan, dog park reviews",
+  keywords: "dog park near me, dog parks NYC, dog parks within 5 mi, NYC off-leash hours, best dog parks Brooklyn, dog-friendly parks Manhattan, dog park reviews, local dog parks",
 };
 
 export default function RootLayout({
