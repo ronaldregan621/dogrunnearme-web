@@ -8,9 +8,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "ingest-local-photos": "node scripts/ingest-local-photos.js",
     "fetch-photos": "node scripts/fetch-google-photos.js",
     "update-photos": "node scripts/update-park-photos.js",
-    "photos": "npm run fetch-photos && npm run update-photos"
+    "photos": "npm run ingest-local-photos && npm run fetch-photos && npm run update-photos"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",

@@ -33,9 +33,11 @@ export default function ParkCard({ park }: ParkCardProps) {
 
   const hasPhotos = park.photos && park.photos.length > 0;
 
+  const streetViewUrl = `https://maps.googleapis.com/maps/api/streetview?size=800x400&location=${park.location.coordinates.lat},${park.location.coordinates.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`;
+
   return (
     <div id={park.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-      <div className="h-40 w-full bg-gray-200">
+      <div className="h-40 w-full bg-gray-200 relative">
         {hasPhotos ? (
           <Swiper
             modules={[Pagination, Autoplay]}
@@ -56,9 +58,13 @@ export default function ParkCard({ park }: ParkCardProps) {
             ))}
           </Swiper>
         ) : (
-          <div className="h-full w-full flex items-center justify-center text-gray-500">
-            No Photo Available
-          </div>
+          <Image
+            src={streetViewUrl}
+            alt={`Street View of ${park.name} at ${park.location.address}`}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
         )}
       </div>
 
