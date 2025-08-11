@@ -11,6 +11,7 @@ export default function Footer() {
               <li><Link href="/" className="text-base text-gray-300 hover:text-white">Home</Link></li>
               <li><Link href="/parks" className="text-base text-gray-300 hover:text-white">All Parks</Link></li>
               <li><Link href="/trails" className="text-base text-gray-300 hover:text-white">Trails</Link></li>
+              <li><Link href="/swimming" className="text-base text-gray-300 hover:text-white">Swimming</Link></li>
               <li><Link href="/dog-rules" className="text-base text-gray-300 hover:text-white">Dog Rules</Link></li>
             </ul>
           </div>
