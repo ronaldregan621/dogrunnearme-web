@@ -1,12 +1,8 @@
 export interface DogParkQuestion {
-  id: string;
   slug: string;
-  question: string;
+  title: string;
+  metaDescription: string;
   quickAnswer: string;
-  answer: string;
+  fullAnswer: string;
   relatedQuestions: string[];
-  seo: {
-    title: string;
-    description: string;
-  };
 } 

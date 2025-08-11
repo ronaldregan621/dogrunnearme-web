@@ -15,10 +15,10 @@ export default function QuestionsHubPage() {
 
       <div className="space-y-8">
         {dogParkQuestions.map((q) => (
-          <div key={q.id}>
+          <div key={q.slug}>
             <Link href={`/questions/${q.slug}`}>
               <h2 className="text-2xl font-semibold text-gray-900 hover:text-blue-700">
-                {q.question}
+                {q.title}
               </h2>
             </Link>
             <p className="mt-2 text-gray-600">

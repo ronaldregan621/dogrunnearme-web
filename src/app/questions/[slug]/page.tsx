@@ -1,53 +1,118 @@
 import { dogParkQuestions } from '@/data/dogParkQuestions';
-import { notFound } from 'next/navigation';
-import type { Metadata } from 'next';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
-type Props = {
-  params: { slug: string };
-};
+export async function generateStaticParams() {
+  return dogParkQuestions.map((question) => ({
+    slug: question.slug,
+  }));
+}
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const question = dogParkQuestions.find((q) => q.slug === params.slug);
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const question = dogParkQuestions.find(q => q.slug === params.slug);
+  
   if (!question) {
-    return { title: 'Question Not Found' };
+    return {
+      title: 'Question Not Found',
+    };
   }
+
   return {
-    title: question.seo.title,
-    description: question.seo.description,
+    title: question.title,
+    description: question.metaDescription,
+    openGraph: {
+      title: question.title,
+      description: question.metaDescription,
+    },
   };
 }
 
-export default function QuestionDetailsPage({ params }: Props) {
-  const question = dogParkQuestions.find((q) => q.slug === params.slug);
-  if (!question) return notFound();
+export default function QuestionPage({ params }: { params: { slug: string } }) {
+  const question = dogParkQuestions.find(q => q.slug === params.slug);
+  
+  if (!question) {
+    notFound();
+  }
 
-  const related = dogParkQuestions.filter(q => question.relatedQuestions.includes(q.slug));
+  const relatedQuestions = dogParkQuestions.filter(q => 
+    question.relatedQuestions.includes(q.slug)
+  );
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: {
+      '@type': 'Question',
+      name: question.title,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: question.fullAnswer,
+      },
+    },
+  };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <article className="prose lg:prose-xl">
-        <h1>{question.question}</h1>
-        <div dangerouslySetInnerHTML={{ __html: question.answer }} />
-      </article>
-
-      <div className="mt-12">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Related Questions</h2>
-        <div className="space-y-4">
-          {related.map(q => (
-            <Link key={q.id} href={`/questions/${q.slug}`} className="block p-4 rounded-lg bg-white shadow hover:shadow-md transition-shadow">
-              <h3 className="font-semibold text-gray-900">{q.question}</h3>
-              <p className="text-sm text-gray-600 mt-1">{q.quickAnswer}</p>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-8">
+    <div className="max-w-4xl mx-auto px-4 py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      
+      <nav className="mb-6">
         <Link href="/questions" className="text-blue-600 hover:underline">
-          &larr; Back to all questions
+          ← Back to All Questions
         </Link>
-      </div>
+      </nav>
+
+      <article>
+        <h1 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
+          {question.title}
+        </h1>
+
+        <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8">
+          <p className="font-semibold text-gray-800">Quick Answer:</p>
+          <p className="text-gray-700 mt-2">{question.quickAnswer}</p>
+        </div>
+
+        <div className="prose prose-lg max-w-none">
+          <p className="text-gray-700 leading-relaxed text-lg">
+            {question.fullAnswer}
+          </p>
+        </div>
+
+        <section className="mt-12 border-t pt-8">
+          <h2 className="text-2xl font-bold mb-6 text-gray-900">Related Questions</h2>
+          <div className="grid gap-4">
+            {relatedQuestions.map((related) => (
+              <Link
+                key={related.slug}
+                href={`/questions/${related.slug}`}
+                className="block p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition"
+              >
+                <h3 className="font-semibold text-blue-600 hover:underline">
+                  {related.title}
+                </h3>
+                <p className="text-gray-600 mt-1 text-sm">
+                  {related.quickAnswer}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-12 bg-green-50 p-6 rounded-lg">
+          <h2 className="text-xl font-bold mb-3">Find Dog Parks Near You</h2>
+          <p className="text-gray-700 mb-4">
+            Discover the best dog parks in your area with reviews, photos, and amenities.
+          </p>
+          <Link 
+            href="/" 
+            className="inline-block bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition"
+          >
+            Browse Dog Parks Directory
+          </Link>
+        </section>
+      </article>
     </div>
   );
 } 
