@@ -1,6 +1,13 @@
 import { DogPark } from '@/types/dogPark';
+import parkPhotos from './park-photos.json';
 
-export const dogParks: DogPark[] = [
+type ParkPhotos = {
+  [key: string]: string[];
+};
+
+const allParkPhotos: ParkPhotos = parkPhotos;
+
+let dogParksData: DogPark[] = [
   {
     id: 'central-park-dog-run',
     name: 'Central Park Dog Run',
@@ -54,7 +61,7 @@ export const dogParks: DogPark[] = [
         date: '2025-07-14'
       }
     ],
-    photos: ['/images/central-park-dog-run-1.jpg'],
+    photos: [], // This will be replaced by the build script
     seo: {
       title: 'Central Park Dog Run - Best Dog Park in Manhattan',
       description: 'Central Park Dog Run features separate areas for small and large dogs, water fountains, shade, and agility equipment. Open 6 AM to 10 PM daily.',
@@ -114,7 +121,7 @@ export const dogParks: DogPark[] = [
         date: '2025-07-13'
       }
     ],
-    photos: ['/images/washington-square-dog-run-1.jpg'],
+    photos: [],
     seo: {
       title: 'Washington Square Park Dog Run - Greenwich Village',
       description: 'Washington Square Park Dog Run offers separate areas for small and large dogs. Open until midnight with extended hours.',
@@ -174,7 +181,7 @@ export const dogParks: DogPark[] = [
         date: '2025-07-12'
       }
     ],
-    photos: ['/images/chelsea-waterside-dog-park-1.jpg'],
+    photos: [],
     seo: {
       title: 'Chelsea Waterside Dog Park - Best Dog Park in Chelsea',
       description: 'Chelsea Waterside Dog Park features separate areas for large and small dogs, seating, water fountains, and extended hours until 1 AM.',
@@ -234,7 +241,7 @@ export const dogParks: DogPark[] = [
         date: '2025-07-14'
       }
     ],
-    photos: ['/images/carl-schurz-dog-run-1.jpg'],
+    photos: [],
     seo: {
       title: 'Carl Schurz Dog Run - Upper East Side Dog Park',
       description: 'Carl Schurz Dog Run offers a separate small dog area with river views. Located at 83rd St & East River.',
@@ -294,7 +301,7 @@ export const dogParks: DogPark[] = [
         date: '2025-07-13'
       }
     ],
-    photos: ['/images/corlears-hook-dog-run-1.jpg'],
+    photos: [],
     seo: {
       title: 'Corlears Hook Park Dog Run - Spacious Dog Park in Manhattan',
       description: 'Corlears Hook Park Dog Run features separated big and small dog areas with water fountains, shade, and agility equipment.',
@@ -354,7 +361,7 @@ export const dogParks: DogPark[] = [
         date: '2025-07-16'
       }
     ],
-    photos: ['/images/prospect-park-dog-run-1.jpg'],
+    photos: [],
     seo: {
       title: 'Prospect Park Dog Run - Best Dog Park in Brooklyn',
       description: 'Prospect Park Dog Run offers separate areas for small and large dogs with water fountains, shade, and agility equipment.',
@@ -414,7 +421,7 @@ export const dogParks: DogPark[] = [
         date: '2025-07-14'
       }
     ],
-    photos: ['/images/pelham-bay-dog-run-1.jpg'],
+    photos: [],
     seo: {
       title: 'Pelham Bay Dog Run - Bronx Dog Park',
       description: 'Pelham Bay Dog Run features two separate play areas and water fountains. Perfect for Bronx dog owners.',
@@ -474,7 +481,7 @@ export const dogParks: DogPark[] = [
         date: '2025-07-13'
       }
     ],
-    photos: ['/images/bull-moose-dog-run-1.jpg'],
+    photos: [],
     seo: {
       title: 'Bull Moose Dog Run - Manhattan Dog Park',
       description: 'Bull Moose Dog Run offers two separate areas for large and small dogs with water fountains and seating.',
@@ -534,7 +541,7 @@ export const dogParks: DogPark[] = [
         date: '2025-07-15'
       }
     ],
-    photos: ['/images/gantry-state-dog-run-1.jpg'],
+    photos: [],
     seo: {
       title: 'Gantry State Dog Run - Queens Dog Park with Manhattan Views',
       description: 'Gantry State Dog Run offers separate areas for small and large dogs with beautiful Manhattan skyline views.',
@@ -594,11 +601,16 @@ export const dogParks: DogPark[] = [
         date: '2025-07-14'
       }
     ],
-    photos: ['/images/clove-lakes-dog-run-1.jpg'],
+    photos: [],
     seo: {
       title: 'Clove Lakes Dog Run - Staten Island Dog Park',
       description: 'Clove Lakes Dog Run offers separate areas for small and large dogs with beautiful lake views in Staten Island.',
       keywords: ['clove lakes dog run', 'staten island dog park', 'nyc dog park', 'lake views']
     }
   }
-]; 
+];
+
+export const dogParks: DogPark[] = dogParksData.map(park => {
+  const photos = allParkPhotos[park.id] || [];
+  return { ...park, photos };
+}); 
