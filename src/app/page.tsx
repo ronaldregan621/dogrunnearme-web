@@ -8,8 +8,8 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'DogRunNearMe - The Best NYC Dog Parks, Voted by Redditors',
-  description: "Your ultimate guide to the best dog parks in NYC, with off-leash hours, safety reviews, and community insights. Find a dog-friendly park near you today.",
+  title: 'Find a Dog Park Near Me - The Best NYC Dog Parks, Voted by Redditors',
+  description: "Looking for a dog park near me in NYC? Discover the best off-leash areas with our complete guide, featuring safety reviews, photos, and community insights.",
 };
 
 export default function Home() {
