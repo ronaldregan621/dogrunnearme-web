@@ -490,7 +490,8 @@ let dogParksData: DogPark[] = [
   },
   {
     id: 'gantry-state-dog-run',
-    name: 'Gantry State Dog Run',
+    name: 'Gantry Plaza State Park Dog Run',
+    legacyNames: ['Gantry State Dog Run'],
     slug: 'gantry-state-dog-run',
     location: {
       address: 'Gantry Plaza State Park, Queens',

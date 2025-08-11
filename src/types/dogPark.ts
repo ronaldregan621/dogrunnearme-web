@@ -1,6 +1,7 @@
 export interface DogPark {
   id: string;
   name: string;
+  legacyNames?: string[];
   slug: string;
   location: {
     address: string;
