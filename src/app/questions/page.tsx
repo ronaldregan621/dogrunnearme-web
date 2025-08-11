@@ -1,33 +1,38 @@
-import { dogParkQuestions } from '@/data/dogParkQuestions';
 import Link from 'next/link';
+import { dogParkQuestions } from '@/data/dogParkQuestions';
 
-export default function QuestionsHubPage() {
+export const metadata = {
+  title: 'Dog Park Questions & Answers - Complete Guide',
+  description: 'Find answers to the most common dog park questions. Learn about safety, alternatives, socialization, and whether dog parks are right for your dog.',
+};
+
+export default function QuestionsHub() {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-          Dog Park Q&A
-        </h1>
-        <p className="mt-4 text-xl text-gray-600">
-          Your guide to navigating the NYC dog park scene.
-        </p>
-      </div>
+    <div className="max-w-6xl mx-auto px-4 py-8">
+      <h1 className="text-4xl font-bold mb-4 text-gray-900">
+        Dog Park Questions & Answers
+      </h1>
+      <p className="text-xl text-gray-600 mb-8">
+        Everything you need to know about dog parks, socialization, and alternatives
+      </p>
 
-      <div className="space-y-8">
-        {dogParkQuestions.map((q) => (
-          <div key={q.slug}>
-            <Link href={`/questions/${q.slug}`}>
-              <h2 className="text-2xl font-semibold text-gray-900 hover:text-blue-700">
-                {q.title}
-              </h2>
-            </Link>
-            <p className="mt-2 text-gray-600">
-              {q.quickAnswer}
+      <div className="grid md:grid-cols-2 gap-6">
+        {dogParkQuestions.map((question) => (
+          <Link
+            key={question.slug}
+            href={`/questions/${question.slug}`}
+            className="block p-6 bg-white border border-gray-200 rounded-lg hover:shadow-lg transition"
+          >
+            <h2 className="text-xl font-semibold mb-3 text-blue-600 hover:underline">
+              {question.title}
+            </h2>
+            <p className="text-gray-600">
+              {question.quickAnswer}
             </p>
-            <Link href={`/questions/${q.slug}`} className="text-blue-600 hover:text-blue-700 font-semibold mt-2 inline-block">
-              Read More &rarr;
-            </Link>
-          </div>
+            <span className="inline-block mt-3 text-sm text-blue-500 hover:underline">
+              Read full answer →
+            </span>
+          </Link>
         ))}
       </div>
     </div>
