@@ -10,6 +10,13 @@ interface GooglePhoto {
   url: string;
 }
 
+interface GooglePlacePhoto {
+  photo_reference: string;
+  width: number;
+  height: number;
+  html_attributions?: string[];
+}
+
 async function findPlaceId(query: string): Promise<{ place_id: string; name: string } | null> {
   const url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURIComponent(query)}&inputtype=textquery&fields=place_id,name&key=${GOOGLE_PLACES_API_KEY}`;
   
@@ -54,7 +61,7 @@ async function getPlacePhotos(placeId: string, maxPhotos: number = 5): Promise<G
     }
     
     if (data.result && data.result.photos) {
-      const photos = data.result.photos.slice(0, maxPhotos).map((photo: any) => ({
+      const photos = data.result.photos.slice(0, maxPhotos).map((photo: GooglePlacePhoto) => ({
         photo_reference: photo.photo_reference,
         width: photo.width,
         height: photo.height,
