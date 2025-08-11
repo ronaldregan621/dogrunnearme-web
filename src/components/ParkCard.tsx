@@ -2,10 +2,11 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Autoplay } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/pagination';
+// Swiper imports kept for now but not used while Street View is default
+// import { Swiper, SwiperSlide } from 'swiper/react';
+// import { Pagination, Autoplay } from 'swiper/modules';
+// import 'swiper/css';
+// import 'swiper/css/pagination';
 import { DogPark } from '@/types/dogPark';
 
 interface ParkCardProps {
@@ -31,41 +32,18 @@ export default function ParkCard({ park }: ParkCardProps) {
     }
   };
 
-  const hasPhotos = park.photos && park.photos.length > 0;
-
   const streetViewUrl = `https://maps.googleapis.com/maps/api/streetview?size=800x400&location=${park.location.coordinates.lat},${park.location.coordinates.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`;
 
   return (
     <div id={park.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       <div className="h-40 w-full bg-gray-200 relative">
-        {hasPhotos ? (
-          <Swiper
-            modules={[Pagination, Autoplay]}
-            pagination={{ clickable: true }}
-            autoplay={{ delay: 5000, disableOnInteraction: false }}
-            className="h-full w-full"
-          >
-            {park.photos.map((url, idx) => (
-              <SwiperSlide key={idx} className="h-full w-full">
-                <Image
-                  src={url}
-                  alt={`${park.name} photo ${idx + 1}`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        ) : (
-          <Image
-            src={streetViewUrl}
-            alt={`Street View of ${park.name} at ${park.location.address}`}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-        )}
+        <Image
+          src={streetViewUrl}
+          alt={`Street View of ${park.name} at ${park.location.address}`}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
       </div>
 
       <div className="p-4">
