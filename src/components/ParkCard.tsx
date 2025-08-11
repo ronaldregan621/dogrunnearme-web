@@ -2,6 +2,10 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
 import { DogPark } from '@/types/dogPark';
 
 interface ParkCardProps {
@@ -33,13 +37,24 @@ export default function ParkCard({ park }: ParkCardProps) {
 
   return (
     <div id={park.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
-      {park.location.coordinates && (
-        <Image
-          src={park.photos && park.photos.length > 0 ? park.photos[0] : `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${park.location.coordinates.lat},${park.location.coordinates.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
-          alt={`${park.name} photo`}
-          width={600}
-          height={300}
-          className="w-full h-40 object-cover" />
+      {park.photos && park.photos.length > 0 ? (
+        <Swiper modules={[Pagination]} pagination={{ clickable: true }} className="h-40 w-full">
+          {park.photos.slice(0,5).map((url, idx) => (
+            <SwiperSlide key={idx} className="h-40 w-full">
+              <Image src={url} alt={`${park.name} photo ${idx+1}`} width={600} height={300} className="w-full h-40 object-cover" />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      ) : (
+        park.location.coordinates && (
+          <Image
+            src={`https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${park.location.coordinates.lat},${park.location.coordinates.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`}
+            alt={`${park.name} street view`}
+            width={600}
+            height={300}
+            className="w-full h-40 object-cover"
+          />
+        )
       )}
       <div className="p-6">
         <div className="flex justify-between items-start mb-4">
