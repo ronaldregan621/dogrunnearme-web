@@ -11,7 +11,7 @@ export default function NavBar() {
           <Link href="/">Home</Link>
           <Link href="/parks">All Parks</Link>
           <Link href="/dog-rules">Dog Rules</Link>
-          <a href="/#about">About</a>
+          <Link href="/#about">About</Link>
         </div>
       </nav>
     </header>
