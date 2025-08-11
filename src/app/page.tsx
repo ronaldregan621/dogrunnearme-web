@@ -1,9 +1,10 @@
 import { dogParks } from '@/data/dogParks';
+import { dogFriendlyTrails } from '@/data/dogFriendlyTrails';
 import ParkCard from '@/components/ParkCard';
 import TopParksCarousel from '@/components/TopParksCarousel';
 import HeroButtons from '@/components/HeroButtons';
 import AboutSection from '@/components/AboutSection';
-import { Dog, Fence, Clock, Accessibility } from 'lucide-react';
+import { Dog, Fence, Clock, Accessibility, Mountain } from 'lucide-react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 
@@ -140,6 +141,45 @@ export default function Home() {
           <div className="text-center mt-12">
             <Link href="/parks" className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
               View All Parks
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Paws on the Path Section */}
+      <div className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-3">
+              <Mountain className="w-8 h-8 text-green-600" />
+              Paws on the Path
+            </h2>
+            <p className="text-xl text-gray-600">
+              Explore the best dog-friendly hiking and walking trails in and around NYC.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {dogFriendlyTrails.map((trail) => (
+              <div key={trail.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                <div className="h-40 w-full bg-gray-200 flex items-center justify-center">
+                  <span className="text-gray-500">Image</span>
+                </div>
+                <div className="p-4">
+                  <div className="text-sm font-semibold text-blue-600">{trail.location.area}</div>
+                  <h3 className="text-lg font-semibold text-gray-900 mt-1">{trail.name}</h3>
+                  <p className="text-gray-600 text-sm mt-2">{trail.length} · {trail.difficulty}</p>
+                  <Link href={`/trails/${trail.slug}`} className="text-blue-600 hover:text-blue-700 font-semibold mt-4 inline-block">
+                    Explore Trail &rarr;
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="text-center mt-12">
+            <Link href="/trails" className="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+              View All Trails
             </Link>
           </div>
         </div>
