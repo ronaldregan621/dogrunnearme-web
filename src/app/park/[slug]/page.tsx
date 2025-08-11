@@ -2,6 +2,7 @@ import { dogParks } from '@/data/dogParks';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
 type Props = {
   params: { slug: string };
@@ -90,6 +91,18 @@ export default function Page({ params }: Props) {
             </ul>
           </div>
         </div>
+
+        {park.slug === 'prospect-park-dog-run' && (
+          <div className="mt-12 border-t pt-8">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-3">Prospect Park Dog Beach</h2>
+            <p className="text-gray-700 mb-3">
+              Looking for a place for your pup to cool off? Explore the dog-friendly water access inside Prospect Park.
+            </p>
+            <Link href="/park/prospect-park-dog-run/dog-beach" className="inline-block text-blue-600 font-semibold hover:underline">
+              View Prospect Park Dog Beach →
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );
