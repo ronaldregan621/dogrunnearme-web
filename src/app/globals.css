@@ -52,3 +52,17 @@ body {
   line-height: 1.5;
   color: #4b5563;
 }
+
+@media (max-width: 768px) {
+  body {
+    padding: 0 16px;
+  }
+  
+  .featured-parks, .trails-section, .swimming-section {
+    margin-bottom: 24px;
+  }
+  
+  .park-card {
+    margin-bottom: 20px;
+  }
+}
