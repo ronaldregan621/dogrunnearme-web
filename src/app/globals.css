@@ -92,3 +92,39 @@ body {
 .park-actions a:hover {
   transform: translateY(-1px);
 }
+
+.hero {
+  background: linear-gradient(135deg, #111827, #1f2937);
+  color: white;
+  padding: 48px 0;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.hero .hero-subtitle {
+  margin-top: 8px;
+  color: #d1d5db;
+}
+.browse-hooks {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+.browse-hooks .hook {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 6px 10px;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+}
+
+@media (min-width: 640px) {
+  .hero h1 { font-size: 2.5rem; }
+}
+@media (min-width: 1024px) {
+  .hero h1 { font-size: 3rem; }
+}

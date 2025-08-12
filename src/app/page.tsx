@@ -18,24 +18,17 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-24">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Best Dog Parks in NYC 2025
-            </h1>
-            <p className="text-xl md:text-2xl mb-3 text-blue-100">
-              <span className="italic">As voted by the r/AskNYC community!</span>
-            </p>
-            <p className="text-lg md:text-xl text-blue-100 font-semibold mb-8">
-              Because dog runs beat dog parks every time.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <HeroButtons />
-            </div>
+      <section className="hero">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1>Find your dog's new favorite spot in 30 seconds</h1>
+          <p className="hero-subtitle">See what 10,000+ NYC dog parents are raving about right now</p>
+          <div className="browse-hooks">
+            <span className="hook">This week's most talked-about parks</span>
+            <span className="hook">Secret spots your neighbors don't want you to know</span>
+            <span className="hook">Parks perfect for your dog's personality</span>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Removed Top Parks Carousel for MVP stability */}
       {/* <TopParksCarousel /> */}
