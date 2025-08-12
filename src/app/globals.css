@@ -37,3 +37,18 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(0,0,0,0.12);
 }
+
+/* Make park names much bigger and bolder */
+.park-name, .featured-park h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #1f2937;
+}
+
+/* Better spacing for descriptions */
+.park-description {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #4b5563;
+}
