@@ -117,6 +117,13 @@ export default function Home() {
             <p className="text-gray-600">
               Filter by amenities, accessibility, hours, and location across all 5 boroughs
             </p>
+            <div className="mt-4 flex flex-wrap gap-3 justify-center text-sm">
+              <Link href="/nyc/manhattan" className="text-blue-600 hover:underline">Manhattan</Link>
+              <Link href="/nyc/brooklyn" className="text-blue-600 hover:underline">Brooklyn</Link>
+              <Link href="/nyc/queens" className="text-blue-600 hover:underline">Queens</Link>
+              <Link href="/nyc/bronx" className="text-blue-600 hover:underline">Bronx</Link>
+              <Link href="/nyc/staten-island" className="text-blue-600 hover:underline">Staten Island</Link>
+            </div>
           </div>
         </div>
       </div>

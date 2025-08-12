@@ -108,6 +108,21 @@ function ParksContent() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'ItemList',
+              itemListElement: filteredParks.map((park, index) => ({
+                '@type': 'ListItem',
+                position: index + 1,
+                url: `https://www.dogrunnearme.com/park/${park.slug}`,
+                name: park.name,
+              })),
+            }),
+          }}
+        />
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             NYC Dog Parks Directory
