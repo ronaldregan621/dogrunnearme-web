@@ -101,9 +101,9 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">Real-Time Updates</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Updated Monthly</h3>
             <p className="text-gray-600">
-              Crowd levels, park status, and maintenance alerts updated regularly
+              Crowd levels, park status, and maintenance notes reviewed on a regular cadence
             </p>
           </div>
 

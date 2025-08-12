@@ -492,7 +492,7 @@ let dogParksData: DogPark[] = [
     id: 'gantry-state-dog-run',
     name: 'Gantry Plaza State Park Dog Run',
     legacyNames: ['Gantry State Dog Run'],
-    slug: 'gantry-state-dog-run',
+    slug: 'gantry-plaza-state-park-dog-run',
     location: {
       address: 'Gantry Plaza State Park, Queens',
       borough: 'Queens',
@@ -544,9 +544,9 @@ let dogParksData: DogPark[] = [
     ],
     photos: [],
     seo: {
-      title: 'Gantry State Dog Run - Queens Dog Park with Manhattan Views',
-      description: 'Gantry State Dog Run offers separate areas for small and large dogs with beautiful Manhattan skyline views.',
-      keywords: ['gantry state dog run', 'queens dog park', 'nyc dog park', 'manhattan skyline views']
+      title: 'Gantry Plaza State Park Dog Run - Queens Dog Park with Manhattan Views',
+      description: 'Gantry Plaza State Park Dog Run offers separate areas for small and large dogs with beautiful Manhattan skyline views.',
+      keywords: ['gantry plaza state park dog run', 'gantry state dog run', 'queens dog park', 'nyc dog park', 'manhattan skyline views']
     }
   },
   {
