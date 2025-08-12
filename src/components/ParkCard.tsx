@@ -88,12 +88,22 @@ export default function ParkCard({ park }: ParkCardProps) {
           <span>{park.hours.open} - {park.hours.close}</span>
         </div>
 
-        <Link 
-          href={`/park/${park.slug}`}
-          className="block w-full bg-blue-600 text-white text-center py-2 rounded hover:bg-blue-700 transition-colors"
-        >
-          View Details
-        </Link>
+        <div className="flex gap-2">
+          <Link 
+            href={`/park/${park.slug}`}
+            className="flex-1 bg-blue-600 text-white text-center py-2 rounded hover:bg-blue-700 transition-colors"
+          >
+            View Details
+          </Link>
+          <a
+            href={`https://www.google.com/maps/dir/?api=1&destination=${park.location.coordinates.lat},${park.location.coordinates.lng}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 border border-gray-300 text-gray-800 text-center py-2 rounded hover:bg-gray-50 transition-colors"
+          >
+            Directions
+          </a>
+        </div>
       </div>
     </div>
   );
