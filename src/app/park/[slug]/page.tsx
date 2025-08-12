@@ -57,8 +57,19 @@ export default function Page({ params }: Props) {
           alt={`A street view image of ${park.name} in ${park.location.borough}, a popular dog run near me.`}
           width={800}
           height={400}
-          className="w-full rounded-lg mb-8"
+          className="w-full rounded-lg mb-4"
         />
+
+        <div className="mb-8">
+          <a
+            href={`https://www.google.com/maps/dir/?api=1&destination=${park.location.coordinates.lat},${park.location.coordinates.lng}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block border border-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-50 transition-colors"
+          >
+            Directions
+          </a>
+        </div>
 
         {/* Features */}
         <h2 className="text-2xl font-semibold text-gray-900 mb-4">Features</h2>
