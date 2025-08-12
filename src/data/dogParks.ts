@@ -7,7 +7,7 @@ type ParkPhotos = {
 
 const allParkPhotos: ParkPhotos = parkPhotos;
 
-let dogParksData: DogPark[] = [
+const dogParksData: DogPark[] = [
   {
     id: 'central-park-dog-run',
     name: 'Central Park Dog Run',

@@ -24,7 +24,7 @@ export default function FAQPage() {
                 How can I find dog parks within 5 miles of my location?
               </dt>
               <dd className="mt-2 text-base leading-7 text-gray-600">
-                The easiest way is to use our <a href="/parks" className="text-blue-600 hover:underline font-medium">"Find Near Me"</a> button on the homepage or parks directory. With your permission, it uses your device's location to automatically sort all parks by distance, showing you the closest options first. It's perfect for finding local dog parks within 5 miles or even closer.
+                The easiest way is to use our <a href="/parks" className="text-blue-600 hover:underline font-medium">&quot;Find Near Me&quot;</a> button on the homepage or parks directory. With your permission, it uses your device&#39;s location to automatically sort all parks by distance, showing you the closest options first. It&#39;s perfect for finding local dog parks within 5 miles or even closer.
               </dd>
             </div>
 
@@ -33,16 +33,16 @@ export default function FAQPage() {
                 Are there indoor dog parks in NYC?
               </dt>
               <dd className="mt-2 text-base leading-7 text-gray-600">
-                While this directory focuses on public, outdoor dog parks, there are a few private, indoor dog parks and doggy daycare facilities in NYC. These typically require a membership or day pass. We recommend searching on Yelp or Google Maps for "indoor dog park" to find the latest options for rainy or cold days.
+                While this directory focuses on public, outdoor dog parks, there are a few private, indoor dog parks and doggy daycare facilities in NYC. These typically require a membership or day pass. We recommend searching on Yelp or Google Maps for &quot;indoor dog park&quot; to find the latest options for rainy or cold days.
               </dd>
             </div>
 
             <div>
               <dt className="text-lg font-semibold leading-7 text-gray-900">
-                What's the difference between a "dog park" and a "dog run"?
+                What&apos;s the difference between a &quot;dog park&quot; and a &quot;dog run&quot;?
               </dt>
               <dd className="mt-2 text-base leading-7 text-gray-600">
-                The terms are often used interchangeably in NYC. Generally, a "dog run" is a fenced-off area where dogs can be off-leash, and it might be part of a larger park. A "dog park" might be a larger, dedicated space with more amenities. Our directory includes both, as they all serve the main purpose: giving your dog a safe place to play off-leash.
+                The terms are often used interchangeably in NYC. Generally, a &quot;dog run&quot; is a fenced-off area where dogs can be off-leash, and it might be part of a larger park. A &quot;dog park&quot; might be a larger, dedicated space with more amenities. Our directory includes both, as they all serve the main purpose: giving your dog a safe place to play off-leash.
               </dd>
             </div>
 

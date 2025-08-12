@@ -195,7 +195,7 @@ export default function Home() {
               Doggie Paddles
             </h2>
             <p className="text-xl text-gray-600">
-              Discover NYC's top dog-friendly swimming spots.
+              Discover NYC&#39;s top dog-friendly swimming spots.
             </p>
           </div>
 
