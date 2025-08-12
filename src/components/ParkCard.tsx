@@ -104,12 +104,12 @@ export default function ParkCard({ park }: ParkCardProps) {
             View Details
           </Link>
           <a
-            href={`https://www.google.com/maps/dir/?api=1&destination=${park.location.coordinates.lat},${park.location.coordinates.lng}`}
+            href={`https://maps.google.com/maps?q=${encodeURIComponent(`${park.name}, ${park.location.address}`)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 border border-gray-300 text-gray-800 text-center py-2 rounded hover:bg-gray-50 transition-colors"
           >
-            Directions
+            📍 Directions
           </a>
         </div>
       </div>

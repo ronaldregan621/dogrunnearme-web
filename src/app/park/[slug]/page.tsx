@@ -52,34 +52,6 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
           {park.location.address} · {park.location.borough}
         </p>
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Place',
-              name: park.name,
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: park.location.address,
-                addressLocality: park.location.borough,
-                addressRegion: 'NY',
-                addressCountry: 'US'
-              },
-              geo: {
-                '@type': 'GeoCoordinates',
-                latitude: park.location.coordinates.lat,
-                longitude: park.location.coordinates.lng
-              },
-              openingHoursSpecification: [{
-                '@type': 'OpeningHoursSpecification',
-                opens: park.hours.open,
-                closes: park.hours.close
-              }]
-            })
-          }}
-        />
-
         <Image
           src={streetViewUrl}
           alt={`A street view image of ${park.name} in ${park.location.borough}, a popular dog run near me.`}
@@ -90,12 +62,12 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
 
         <div className="mb-8">
           <a
-            href={`https://www.google.com/maps/dir/?api=1&destination=${park.location.coordinates.lat},${park.location.coordinates.lng}`}
+            href={`https://maps.google.com/maps?q=${encodeURIComponent(`${park.name}, ${park.location.address}`)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block border border-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-50 transition-colors"
           >
-            Directions
+            📍 Directions
           </a>
         </div>
 
