@@ -52,6 +52,34 @@ export default async function Page({ params }: { params: Promise<PageParams> }) 
           {park.location.address} · {park.location.borough}
         </p>
 
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Place',
+              name: park.name,
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: park.location.address,
+                addressLocality: park.location.borough,
+                addressRegion: 'NY',
+                addressCountry: 'US'
+              },
+              geo: {
+                '@type': 'GeoCoordinates',
+                latitude: park.location.coordinates.lat,
+                longitude: park.location.coordinates.lng
+              },
+              openingHoursSpecification: [{
+                '@type': 'OpeningHoursSpecification',
+                opens: park.hours.open,
+                closes: park.hours.close
+              }]
+            })
+          }}
+        />
+
         <Image
           src={streetViewUrl}
           alt={`A street view image of ${park.name} in ${park.location.borough}, a popular dog run near me.`}

@@ -27,6 +27,22 @@ export default function RootLayout({
         <meta property="og:image" content="https://www.dogrunnearme.com/og-image.png" />
         <meta property="og:url" content="https://www.dogrunnearme.com" />
         <meta name="twitter:card" content="summary_large_image" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'DogRunNearMe',
+              url: 'https://www.dogrunnearme.com',
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: 'https://www.dogrunnearme.com/parks?near={search_term_string}',
+                'query-input': 'required name=search_term_string'
+              }
+            })
+          }}
+        />
       </head>
       <body className="antialiased font-sans">
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-blue-600 text-white px-3 py-2 rounded">Skip to content</a>
