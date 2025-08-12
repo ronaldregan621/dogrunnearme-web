@@ -10,7 +10,8 @@ const allParkPhotos: ParkPhotos = parkPhotos;
 const dogParksData: DogPark[] = [
   {
     id: 'central-park-dog-run',
-    name: 'Central Park Dog Run',
+    name: 'Central Park',
+    legacyNames: ['Central Park Dog Run'],
     slug: 'central-park-dog-run',
     location: {
       address: 'Central Park, New York, NY',
@@ -70,7 +71,8 @@ const dogParksData: DogPark[] = [
   },
   {
     id: 'washington-square-dog-run',
-    name: 'Washington Square Park Dog Run',
+    name: 'Washington Square Park',
+    legacyNames: ['Washington Square Park Dog Run'],
     slug: 'washington-square-dog-run',
     location: {
       address: 'Washington Square South & Thompson St, Manhattan',
@@ -130,7 +132,8 @@ const dogParksData: DogPark[] = [
   },
   {
     id: 'chelsea-waterside-dog-park',
-    name: 'Chelsea Waterside Dog Park',
+    name: 'Chelsea Waterside Park',
+    legacyNames: ['Chelsea Waterside Dog Park'],
     slug: 'chelsea-waterside-dog-park',
     location: {
       address: 'Chelsea Waterside Park, Manhattan',
@@ -190,7 +193,8 @@ const dogParksData: DogPark[] = [
   },
   {
     id: 'carl-schurz-dog-run',
-    name: 'Carl Schurz Dog Run',
+    name: 'Carl Schurz Park',
+    legacyNames: ['Carl Schurz Dog Run'],
     slug: 'carl-schurz-dog-run',
     location: {
       address: '83rd St & East River, Manhattan',
@@ -250,7 +254,8 @@ const dogParksData: DogPark[] = [
   },
   {
     id: 'corlears-hook-dog-run',
-    name: 'Corlears Hook Park Dog Run',
+    name: 'Corlears Hook Park',
+    legacyNames: ['Corlears Hook Park Dog Run'],
     slug: 'corlears-hook-dog-run',
     location: {
       address: 'Corlears Hook Park, Manhattan',
@@ -310,7 +315,8 @@ const dogParksData: DogPark[] = [
   },
   {
     id: 'prospect-park-dog-run',
-    name: 'Prospect Park Dog Run',
+    name: 'Prospect Park',
+    legacyNames: ['Prospect Park Dog Run'],
     slug: 'prospect-park-dog-run',
     location: {
       address: 'Prospect Park, Brooklyn',
@@ -370,7 +376,8 @@ const dogParksData: DogPark[] = [
   },
   {
     id: 'pelham-bay-dog-run',
-    name: 'Pelham Bay Dog Run',
+    name: 'Pelham Bay Park',
+    legacyNames: ['Pelham Bay Dog Run'],
     slug: 'pelham-bay-dog-run',
     location: {
       address: 'Pelham Bay Park, Bronx',
@@ -430,7 +437,7 @@ const dogParksData: DogPark[] = [
   },
   {
     id: 'bull-moose-dog-run',
-    name: 'Bull Moose Dog Run',
+    name: 'Bull Moose Dog Run (Central Park)',
     slug: 'bull-moose-dog-run',
     location: {
       address: 'New York, NY',
