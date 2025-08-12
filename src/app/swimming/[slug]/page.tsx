@@ -3,24 +3,24 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 
-type Props = {
-  params: { slug: string };
-};
+type PageParams = { slug: string };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const spot = dogSwimmingSpots.find((s) => s.slug === params.slug);
+export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
+  const { slug } = await params;
+  const spot = dogSwimmingSpots.find((s) => s.slug === slug);
   if (!spot) {
-    return { title: 'Swimming Spot Not Found' };
+    return { title: 'Swimming Spot Not Found' } as any;
   }
   return {
     title: spot.seo.title,
     description: spot.seo.description,
     keywords: spot.seo.keywords.join(', '),
-  };
+  } as any;
 }
 
-export default function SwimmingSpotDetailsPage({ params }: Props) {
-  const spot = dogSwimmingSpots.find((s) => s.slug === params.slug);
+export default async function SwimmingSpotDetailsPage({ params }: { params: Promise<PageParams> }) {
+  const { slug } = await params;
+  const spot = dogSwimmingSpots.find((s) => s.slug === slug);
   if (!spot) return notFound();
 
   const staticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${spot.location.coordinates.lat},${spot.location.coordinates.lng}&zoom=13&size=800x400&maptype=roadmap&markers=color:blue%7Clabel:S%7C${spot.location.coordinates.lat},${spot.location.coordinates.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`;

@@ -3,24 +3,24 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 
-type Props = {
-  params: { slug: string };
-};
+type PageParams = { slug: string };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const trail = dogFriendlyTrails.find((t) => t.slug === params.slug);
+export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
+  const { slug } = await params;
+  const trail = dogFriendlyTrails.find((t) => t.slug === slug);
   if (!trail) {
-    return { title: 'Trail Not Found' };
+    return { title: 'Trail Not Found' } as any;
   }
   return {
     title: trail.seo.title,
     description: trail.seo.description,
     keywords: trail.seo.keywords.join(', '),
-  };
+  } as any;
 }
 
-export default function TrailDetailsPage({ params }: Props) {
-  const trail = dogFriendlyTrails.find((t) => t.slug === params.slug);
+export default async function TrailDetailsPage({ params }: { params: Promise<PageParams> }) {
+  const { slug } = await params;
+  const trail = dogFriendlyTrails.find((t) => t.slug === slug);
   if (!trail) return notFound();
 
   const staticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${trail.location.coordinates.lat},${trail.location.coordinates.lng}&zoom=13&size=800x400&maptype=roadmap&markers=color:blue%7Clabel:P%7C${trail.location.coordinates.lat},${trail.location.coordinates.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`;

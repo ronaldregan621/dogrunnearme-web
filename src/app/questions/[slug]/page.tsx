@@ -8,13 +8,14 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const question = dogParkQuestions.find(q => q.slug === params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const question = dogParkQuestions.find(q => q.slug === slug);
   
   if (!question) {
     return {
       title: 'Question Not Found',
-    };
+    } as any;
   }
 
   return {
@@ -24,11 +25,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       title: question.title,
       description: question.metaDescription,
     },
-  };
+  } as any;
 }
 
-export default function QuestionPage({ params }: { params: { slug: string } }) {
-  const question = dogParkQuestions.find(q => q.slug === params.slug);
+export default async function QuestionPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const question = dogParkQuestions.find(q => q.slug === slug);
   
   if (!question) {
     notFound();
