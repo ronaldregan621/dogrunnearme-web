@@ -11,14 +11,10 @@ export default function NavBar() {
         </div>
         <div className="hidden sm:block sm:ml-6">
           <div className="flex space-x-4">
-            <Link href="/" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-            <Link href="/parks" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">All Parks</Link>
-            <Link href="/trails" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Trails</Link>
-            <Link href="/swimming" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Swimming</Link>
-            <Link href="/questions" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Q&A</Link>
-            <Link href="/dog-rules" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Dog Rules</Link>
-            <Link href="/faq" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">FAQ</Link>
-            <Link href="/#about" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">About</Link>
+            <Link href="/parks" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Find Parks Near Me</Link>
+            <Link href="/size-options" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Small & Large Dogs</Link>
+            <Link href="/hours" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Open Late Tonight</Link>
+            <Link href="/accessibility" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Easy Access</Link>
           </div>
         </div>
       </nav>
