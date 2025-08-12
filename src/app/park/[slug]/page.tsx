@@ -4,12 +4,11 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-type Props = {
-  params: { slug: string };
-};
+type PageParams = { slug: string };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const park = dogParks.find((p) => p.slug === params.slug);
+export async function generateMetadata({ params }: { params: Promise<PageParams> }): Promise<Metadata> {
+  const { slug } = await params;
+  const park = dogParks.find((p) => p.slug === slug);
   if (!park) {
     return {
       title: 'Park Not Found',
@@ -38,8 +37,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function Page({ params }: Props) {
-  const park = dogParks.find((p) => p.slug === params.slug);
+export default async function Page({ params }: { params: Promise<PageParams> }) {
+  const { slug } = await params;
+  const park = dogParks.find((p) => p.slug === slug);
   if (!park) return notFound();
 
   const streetViewUrl = `https://maps.googleapis.com/maps/api/streetview?size=800x400&location=${park.location.coordinates.lat},${park.location.coordinates.lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`;
