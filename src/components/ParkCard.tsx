@@ -47,6 +47,14 @@ export default function ParkCard({ park }: ParkCardProps) {
       </div>
 
       <div className="p-4">
+        <div className="flex items-center mb-3 text-sm">
+          <span className={`font-medium ${park.status === 'open' ? 'text-green-600' : park.status === 'maintenance' ? 'text-yellow-600' : 'text-red-600'}`}>
+            {park.status === 'open' ? '🟢 Open Now' : park.status === 'maintenance' ? '⚠️ Maintenance' : '🔴 Closed'}
+          </span>
+          {Number.isFinite((park as any).distance) && (
+            <span className="text-gray-700 ml-3">{(park as any).distance.toFixed(1)} mi away</span>
+          )}
+        </div>
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-lg font-semibold text-gray-900 line-clamp-2">
             {park.name}
