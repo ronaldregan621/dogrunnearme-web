@@ -48,7 +48,7 @@ export default function FAQPage() {
 
             <div>
               <dt className="text-lg font-semibold leading-7 text-gray-900">
-                What makes a park "dog-friendly"?
+                What makes a park &quot;dog-friendly&quot;?
               </dt>
               <dd className="mt-2 text-base leading-7 text-gray-600">
                 All parks in our directory are dog-friendly, meaning they have designated off-leash areas. Key features that make a park especially dog-friendly include separate areas for small and large dogs, access to water fountains, waste bag dispensers, and secure double-gated entries. Our filters allow you to find parks with the specific amenities you and your dog need.
