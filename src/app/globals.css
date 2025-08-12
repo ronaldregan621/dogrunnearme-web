@@ -66,3 +66,14 @@ body {
     margin-bottom: 20px;
   }
 }
+
+.status.open { color: #059669; }
+.status.busy { color: #d97706; }
+.status.closed { color: #6b7280; }
+
+.distance {
+  background: #f3f4f6;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
