@@ -2,7 +2,7 @@ import { dogParks } from '@/data/dogParks';
 import { dogFriendlyTrails } from '@/data/dogFriendlyTrails';
 import { dogSwimmingSpots } from '@/data/dogSwimmingSpots';
 import ParkCard from '@/components/ParkCard';
-import TopParksCarousel from '@/components/TopParksCarousel';
+// import TopParksCarousel from '@/components/TopParksCarousel';
 import HeroButtons from '@/components/HeroButtons';
 import AboutSection from '@/components/AboutSection';
 import { Dog, Fence, Clock, Accessibility, Mountain, Waves } from 'lucide-react';
@@ -34,8 +34,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Top Parks Carousel */}
-      <TopParksCarousel />
+      {/* Removed Top Parks Carousel for MVP stability */}
+      {/* <TopParksCarousel /> */}
 
       {/* Stats Section */}
       <div className="bg-slate-50">
