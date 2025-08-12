@@ -11,7 +11,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Find a Dog Park Near Me - The Best NYC Dog Parks, Voted by Redditors',
-  description: "Looking for a dog park near me in NYC? Discover the best off-leash areas with our complete guide, featuring safety reviews, photos, and community insights.",
+  description: "Looking for a dog park near me in NYC? Discover the best off-leash areas with our complete guide, featuring safety reviews, photos, and community insights. Because dog runs beat dog parks every time.",
 };
 
 export default function Home() {
@@ -24,8 +24,11 @@ export default function Home() {
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               Best Dog Parks in NYC 2025
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-blue-100">
+            <p className="text-xl md:text-2xl mb-3 text-blue-100">
               <span className="italic">As voted by the r/AskNYC community!</span>
+            </p>
+            <p className="text-lg md:text-xl text-blue-100 font-semibold mb-8">
+              Because dog runs beat dog parks every time.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <HeroButtons />
