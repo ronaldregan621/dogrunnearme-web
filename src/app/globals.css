@@ -128,3 +128,24 @@ body {
 @media (min-width: 1024px) {
   .hero h1 { font-size: 3rem; }
 }
+
+.hero-game-section {
+  background: linear-gradient(135deg, #87CEEB 0%, #98FB98 100%);
+  padding: 60px 20px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+.hero-content { max-width: 1200px; margin: 0 auto; }
+.hero-title { color: #2c3e50; font-size: 2.5em; margin-bottom: 20px; font-weight: bold; }
+.hero-subtitle { color: #34495e; font-size: 1.3em; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
+.game-container { background: rgba(255,255,255,0.95); border-radius: 20px; padding: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); margin: 30px auto; max-width: 700px; }
+.game-title { color: #2c3e50; font-size: 1.8em; margin-bottom: 15px; }
+.game-instructions { color: #7f8c8d; margin-bottom: 25px; font-size: 1.1em; }
+#gameCanvas { border: 3px solid #34495e; border-radius: 15px; background: linear-gradient(to bottom, #87CEEB 0%, #90EE90 70%, #228B22 100%); display: block; margin: 0 auto 20px auto; max-width: 100%; height: auto; }
+.score-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+.score { font-size: 1.3em; font-weight: bold; color: #2c3e50; }
+.cta-section { margin-top: 40px; padding-top: 30px; border-top: 2px solid rgba(255,255,255,0.3); }
+.cta-text { color: #2c3e50; font-size: 1.2em; margin-bottom: 20px; }
+.cta-button { background: linear-gradient(45deg, #3498db, #2980b9); color: white; padding: 15px 30px; font-size: 1.2em; border: none; border-radius: 30px; cursor: pointer; text-decoration: none; display: inline-block; transition: transform 0.3s, box-shadow 0.3s; }
+.cta-button:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3); }
+@media (max-width: 768px) { .hero-title { font-size: 2em; } .hero-subtitle { font-size: 1.1em; } .game-container { padding: 20px; margin: 20px 10px; } #gameCanvas { width: 100%; max-width: 500px; } .score-container { justify-content: center; text-align: center; } .score { font-size: 1.1em; } }

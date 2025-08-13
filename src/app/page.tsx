@@ -8,6 +8,7 @@ import AboutSection from '@/components/AboutSection';
 import { Dog, Fence, Clock, Accessibility, Mountain, Waves } from 'lucide-react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import HeroGameSection from '@/components/HeroGameSection';
 
 export const metadata: Metadata = {
   title: 'Find a Dog Park Near Me - The Best NYC Dog Parks, Voted by Redditors',
@@ -29,6 +30,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <HeroGameSection />
 
       {/* Removed Top Parks Carousel for MVP stability */}
       {/* <TopParksCarousel /> */}
