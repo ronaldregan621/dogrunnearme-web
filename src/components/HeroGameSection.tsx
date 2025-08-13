@@ -71,11 +71,11 @@ export default function HeroGameSection() {
     }
 
     function drawGround() {
-      if (!ctx) return;
+      if (!ctx || !canvas) return;
       ctx.fillStyle = '#228B22';
       ctx.fillRect(0, groundY, canvas.width, canvas.height - groundY);
       ctx.fillStyle = '#32CD32';
-      for (let i = 0; i < canvas.width; i += 20) {
+      for (let i = 0; canvas && i < canvas.width; i += 20) {
         ctx.fillRect(i, groundY, 2, 10);
         ctx.fillRect(i + 7, groundY, 2, 8);
         ctx.fillRect(i + 14, groundY, 2, 12);
@@ -140,7 +140,7 @@ export default function HeroGameSection() {
     }
 
     const loop = () => {
-      if (!ctx) return;
+      if (!ctx || !canvas) return;
       if (gameRunning) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawGround();
@@ -170,7 +170,7 @@ export default function HeroGameSection() {
     }
 
     document.addEventListener('keydown', handleKeyDown);
-    canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+    if (canvas) canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
 
     if (gameStatusElement) gameStatusElement.innerHTML = '';
     reqRef.current = requestAnimationFrame(loop);
@@ -178,19 +178,19 @@ export default function HeroGameSection() {
     return () => {
       if (reqRef.current) cancelAnimationFrame(reqRef.current);
       document.removeEventListener('keydown', handleKeyDown);
-      canvas.removeEventListener('touchstart', handleTouchStart);
+      if (canvas) canvas.removeEventListener('touchstart', handleTouchStart);
     };
   }, []);
 
   return (
-    <section className="hero-game-section">
+    <section className="hero-game-section" style={{ padding: '40px 16px', marginBottom: 24 }}>
       <div className="hero-content">
-        <h1 className="hero-title">NYC&apos;s Ultimate Dog Park Directory</h1>
+        <h1 className="hero-title" style={{ fontSize: '2rem' }}>NYC&apos;s Ultimate Dog Park Directory</h1>
         <p className="hero-subtitle">Discover the perfect park for you and your furry friend across all five boroughs</p>
-        <div className="game-container">
+        <div className="game-container" style={{ maxWidth: 600, padding: 24 }}>
           <h2 className="game-title">🐕 Catch the Ball! 🎾</h2>
           <p className="game-instructions">Press SPACEBAR to make your dog jump and catch the balls!</p>
-          <canvas ref={canvasRef} id="gameCanvas" width={600} height={300} />
+          <canvas ref={canvasRef} id="gameCanvas" width={520} height={260} />
           <div className="score-container">
             <div className="score">Score: <span id="score">0</span></div>
             <div id="gameStatus"></div>

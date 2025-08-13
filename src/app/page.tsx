@@ -70,63 +70,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Why Choose Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Why Choose Our Directory?
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            We&apos;ve researched every NYC dog park to bring you the most comprehensive and up-to-date information
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="text-center">
-            <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">Tried & Loved</h3>
-            <p className="text-gray-600">
-              Real stories from dog parents like you, plus which parks are perfect for nervous rescues vs. social butterflies
-            </p>
-          </div>
-
-          <div className="text-center">
-            <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">Fresh Intel</h3>
-            <p className="text-gray-600">
-              Park conditions and busy times updated this week by local dog parents (see what changed!)
-            </p>
-          </div>
-
-          <div className="text-center">
-            <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">Your Perfect Match Awaits</h3>
-            <p className="text-gray-600">
-              Find parks with exactly what you need: fencing, water bowls, parking, and the right vibe for your pup
-            </p>
-            <div className="mt-4 flex flex-wrap gap-3 justify-center text-sm">
-              <Link href="/nyc/manhattan" className="text-blue-600 hover:underline">Manhattan</Link>
-              <Link href="/nyc/brooklyn" className="text-blue-600 hover:underline">Brooklyn</Link>
-              <Link href="/nyc/queens" className="text-blue-600 hover:underline">Queens</Link>
-              <Link href="/nyc/bronx" className="text-blue-600 hover:underline">Bronx</Link>
-              <Link href="/nyc/staten-island" className="text-blue-600 hover:underline">Staten Island</Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Featured Parks Grid */}
       <div className="bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
