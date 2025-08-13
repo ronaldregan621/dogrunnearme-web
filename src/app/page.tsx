@@ -85,9 +85,9 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">Safety First</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Tried & Loved</h3>
             <p className="text-gray-600">
-              Separate areas for small and large dogs, safety ratings, and real user reviews
+              Real stories from dog parents like you, plus which parks are perfect for nervous rescues vs. social butterflies
             </p>
           </div>
 
@@ -97,9 +97,9 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">Updated Monthly</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Fresh Intel</h3>
             <p className="text-gray-600">
-              Crowd levels, park status, and maintenance notes reviewed on a regular cadence
+              Park conditions and busy times updated this week by local dog parents (see what changed!)
             </p>
           </div>
 
@@ -109,9 +109,9 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">Find Your Perfect Park</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Your Perfect Match Awaits</h3>
             <p className="text-gray-600">
-              Filter by amenities, accessibility, hours, and location across all 5 boroughs
+              Find parks with exactly what you need: fencing, water bowls, parking, and the right vibe for your pup
             </p>
             <div className="mt-4 flex flex-wrap gap-3 justify-center text-sm">
               <Link href="/nyc/manhattan" className="text-blue-600 hover:underline">Manhattan</Link>
@@ -129,10 +129,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Featured Dog Parks
+              This Week&apos;s Favorites
             </h2>
             <p className="text-xl text-gray-600">
-              Discover the best dog parks in NYC, hand-picked based on user reviews and amenities
+              Parks other dog parents can&apos;t stop talking about (see why everyone&apos;s obsessed)
             </p>
           </div>
 
@@ -144,7 +144,7 @@ export default function Home() {
 
           <div className="text-center mt-12">
             <Link href="/parks" className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-              View All Parks
+              See This Week&apos;s Most Popular Spots
             </Link>
           </div>
         </div>
@@ -232,14 +232,14 @@ export default function Home() {
       <div className="bg-gray-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">
-            Ready to Find Your Perfect Dog Park?
+            Find Your Spot in 30 Seconds
           </h2>
           <p className="text-xl text-gray-300 mb-8">
-            Join thousands of NYC dog owners who trust our directory for safe, fun park experiences
+            Join 10,000+ dog parents who discovered their go-to parks here (see what you&apos;ve been missing)
           </p>
-          <Link href="/parks" className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-            Start Exploring
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <HeroButtons />
+          </div>
         </div>
       </div>
 
