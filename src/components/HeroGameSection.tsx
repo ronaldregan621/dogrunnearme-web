@@ -172,13 +172,28 @@ export default function HeroGameSection() {
     document.addEventListener('keydown', handleKeyDown);
     if (canvas) canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
 
+    function handleVisibility() {
+      if (document.hidden) {
+        gameRunning = false;
+      } else {
+        if (!gameRunning) {
+          gameRunning = true;
+          reqRef.current = requestAnimationFrame(loop);
+        }
+      }
+    }
+    document.addEventListener('visibilitychange', handleVisibility);
+
     if (gameStatusElement) gameStatusElement.innerHTML = '';
     reqRef.current = requestAnimationFrame(loop);
 
     return () => {
       if (reqRef.current) cancelAnimationFrame(reqRef.current);
       document.removeEventListener('keydown', handleKeyDown);
-      if (canvas) canvas.removeEventListener('touchstart', handleTouchStart);
+      if (canvas) {
+        canvas.removeEventListener('touchstart', handleTouchStart);
+      }
+      document.removeEventListener('visibilitychange', handleVisibility);
     };
   }, []);
 

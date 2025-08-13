@@ -107,6 +107,7 @@ export default function ParkCard({ park }: ParkCardProps) {
             href={`https://maps.google.com/maps?q=${encodeURIComponent(`${park.name}, ${park.location.address}`)}`}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`Directions to ${park.name}`}
             className="flex-1 border border-gray-300 text-gray-800 text-center py-2 rounded hover:bg-gray-50 transition-colors"
           >
             📍 Directions
